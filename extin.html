@@ -1,0 +1,640 @@
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeudaGas News | Portal de Consulta de Deudas</title>
+
+<!-- Tipografías futuristas y modernas -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+  /* Paleta de Azules Futuristas y Neón */
+  --bg-deep: #030712;         /* Azul espacio profundo */
+  --bg-surface: #0b1528;      /* Azul contenedor */
+  --blue-glow: #00f0ff;       /* Cian eléctrico resplandeciente */
+  --blue-mid: #0072ff;        /* Azul cyber vibrante */
+  --blue-dark: #002244;       /* Azul base oscuro */
+  --neon-green: #39ff14;      /* Verde neón para WhatsApp/Éxito */
+  --text-main: #f3f4f6;       /* Blanco grisáceo para alta legibilidad */
+  --text-muted: #9ca3af;     /* Gris espacial para textos secundarios */
+  --cyber-gradient: linear-gradient(135deg, #00f0ff 0%, #0072ff 100%);
+  --glow-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Rajdhani', 'Inter', sans-serif;
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 114, 255, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.08) 0px, transparent 50%);
+}
+
+/* TOP BAR */
+.topbar {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+  color: var(--text-muted);
+  padding: 12px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.topbar-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue-glow);
+}
+
+.topbar-tag::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--blue-glow);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--blue-glow);
+}
+
+.topbar a {
+  color: var(--text-muted);
+  margin-left: 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.topbar a:hover {
+  color: var(--blue-glow);
+  text-shadow: 0 0 8px var(--blue-glow);
+}
+
+/* HEADER */
+header {
+  background: rgba(11, 21, 40, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 20px 40px;
+  border-bottom: 2px solid var(--blue-mid);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 114, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #fff, var(--blue-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--glow-shadow);
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px 0;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--blue-glow);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--blue-glow);
+}
+
+nav a:hover {
+  color: var(--blue-glow);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* HERO SECTION */
+.hero {
+  max-width: 1400px;
+  margin: auto;
+  padding: 60px 20px;
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 40px;
+}
+
+.main-news {
+  background: var(--bg-surface);
+  padding: 50px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,114,255,0.1);
+  position: relative;
+}
+
+.main-news::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--blue-glow), transparent, var(--blue-mid));
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.main-news h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 54px;
+  line-height: 1.1;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.main-news span {
+  color: var(--blue-glow);
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+  display: block;
+  font-size: 64px;
+}
+
+.main-news p {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 35px;
+}
+
+.btn-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 35px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--cyber-gradient);
+  color: #000;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.7);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--neon-green);
+  border: 2px solid var(--neon-green);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+}
+
+.btn-secondary:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+  transform: translateY(-3px);
+}
+
+/* SIDEBAR & METRICS */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-card {
+  background: rgba(11, 21, 40, 0.6);
+  border: 1px solid rgba(0, 114, 255, 0.2);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.side-card:hover {
+  border-color: var(--blue-glow);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  transform: scale(1.02);
+}
+
+.side-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 40px;
+  background: linear-gradient(180deg, #fff, var(--blue-mid));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.side-card p {
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* SECTIONS */
+.section {
+  padding: 80px 20px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 36px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.section-title::before {
+  content: '';
+  width: 6px;
+  height: 40px;
+  background: var(--blue-glow);
+  box-shadow: 0 0 12px var(--blue-glow);
+  display: inline-block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: var(--bg-surface);
+  padding: 40px 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 114, 255, 0.15);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 3px;
+  background: var(--cyber-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.card i {
+  font-size: 44px;
+  color: var(--blue-glow);
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+.card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+/* DESTACADO */
+.destacado {
+  background: linear-gradient(135deg, rgba(11,21,40,0.9) 0%, rgba(0,34,68,0.7) 100%);
+  padding: 50px;
+  border-radius: 16px;
+  border: 1px solid var(--blue-mid);
+  box-shadow: inset 0 0 30px rgba(0,240,255,0.1);
+  text-align: center;
+}
+
+.destacado h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 38px;
+  color: var(--blue-glow);
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.destacado p {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* FORMULARIO */
+.formulario {
+  background: var(--bg-surface);
+  padding: 50px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(3, 7, 18, 0.6);
+  border: 1px solid rgba(0, 114, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--blue-glow);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+  background: rgba(3, 7, 18, 0.9);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.formulario .btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+  background: #02040a;
+  color: var(--text-muted);
+  padding: 60px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 114, 255, 0.2);
+}
+
+footer h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+footer p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* FLOATING WHATSAPP */
+.float {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 65px;
+  height: 65px;
+  background: var(--neon-green);
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+.float:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.8);
+}
+
+/* RESPONSIVE */
+@media(max-width: 992px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .main-news h1 {
+    font-size: 42px;
+  }
+  .main-news span {
+    font-size: 50px;
+  }
+  header {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+@media(max-width: 600px) {
+  .topbar {
+    display: none; /* Simplificación para móviles */
+  }
+  .main-news {
+    padding: 30px 20px;
+  }
+  .btn-container {
+    flex-direction: column;
+  }
+  .btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-tag">EDICIÓN ESPECIAL • CONSULTA DE DEUDAS</div>
+  <div>
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<header>
+  <div class="logo">DEUDAGAS NEWS</div>
+  <nav>
+    <a href="#beneficios">Beneficios</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#consulta">Consulta</a>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="main-news">
+    <h1>¿Tienes una deuda con <span>Vanti?</span></h1>
+    <p>Consulta tu estado de cuenta actual, recibe orientación virtual instantánea y descubre las mejores alternativas personalizadas para mitigar tu situación financiera hoy mismo.</p>
+    
+    <div class="btn-container">
+      <a href="#consulta" class="btn btn-primary">
+        <i class="fas fa-terminal"></i> Consultar Ahora
+      </a>
+      <a href="https://wa.me/573150978792" class="btn btn-secondary">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="side-card">
+      <h3>5000+</h3>
+      <p>Usuarios Atendidos</p>
+    </div>
+    <div class="side-card">
+      <h3>98%</h3>
+      <p>Satisfacción</p>
+    </div>
+    <div class="side-card">
+      <h3>24/7</h3>
+      <p>Soporte Activo</p>
+    </div>
+  </div>
+</main>
+
+<section class="section" id="beneficios">
+  <h2 class="section-title">Beneficios del Sistema</h2>
+  <div class="grid">
+    <div class="card">
+      <i class="fas fa-search"></i>
+      <h3>Consulta Rápida</h3>
+      <p>Resultados analíticos en segundos introduciendo tus datos de contrato.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-user-shield"></i>
+      <h3>Gestión Segura</h3>
+      <p>Cifrado de datos de extremo a extremo para tu total tranquilidad.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-headset"></i>
+      <h3>Atención Inmediata</h3>
+      <p>Conexión directa con agentes especializados mediante canales digitales.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-percent"></i>
+      <h3>Opciones Flexibles</h3>
+      <p>Acceso a convenios de pago y descuentos dinámicos aplicables.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicios">
+  <div class="destacado">
+    <h2>ESPECIAL DEUDAGAS SYSTEM</h2>
+    <p>Optimiza tus finanzas y pon al día tus servicios públicos a través de nuestro portal automatizado de gestión inteligente de facturas.</p>
+  </div>
+</section>
+
+<section class="section" id="consulta">
+  <h2 class="section-title">Iniciar Consulta Virtual</h2>
+  <div class="formulario">
+    <form onsubmit="event.preventDefault();">
+      <div class="form-group">
+        <input type="text" placeholder="Nombre Completo" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" placeholder="Número Celular" required>
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Número de Contrato" required>
+      </div>
+      <div class="form-group">
+        <textarea rows="5" placeholder="Describe tu caso o situación con el servicio" required></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">
+        <i class="fas fa-paper-plane"></i> Enviar Consulta por WhatsApp
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <h3>DEUDAGAS NEWS</h3>
+  <p>Módulo de Consulta de Deudas • Gestión de Facturas • Inteligencia de Soporte</p>
+  <p style="color: var(--blue-glow);">WhatsApp Hub: +57 315 097 8792</p>
+</footer>
+
+<a href="https://wa.me/573150978792" class="float" aria-label="Contacto directo por WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+</body>
+</html>
